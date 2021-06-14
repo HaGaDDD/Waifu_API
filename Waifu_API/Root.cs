@@ -10,4 +10,5 @@ namespace Waifu_API
     {
         public string url { get; set; }
     }
+
 }

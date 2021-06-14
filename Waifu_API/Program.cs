@@ -20,7 +20,10 @@ namespace Waifu_API
 
             string type = Console.ReadLine();
 
-            List<string> catSFW = new List<string> { "waifu", "neko", "awoo", "bite", "dance"};
+            List<string> catSFW = new List<string> { "waifu", "neko","shinobu", "megumin", "bully", "cuddle", "cry",
+                                                     "hug", "awoo", "kiss", "lick", "pat", "smug", "bonk", "yeet", 
+                                                     "blush", "smile", "wave", "highfive", "handhold", "nom", "bite",
+                                                     "glomp", "slap", "kill", "happy", "wink", "poke", "dance", "cringe"};
             List<string> catNSFW = new List<string> { "waifu", "neko", "trap", "blowjob"  };
 
             if (type == "sfw")
