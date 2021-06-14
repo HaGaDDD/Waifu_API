@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
@@ -14,10 +11,10 @@ namespace Waifu_API
         static void Main(string[] args)
         {
             string url = @"https://api.waifu.pics/";
-            
 
-            Console.WriteLine("sfw or nsfw?");
 
+            List<string> types = new List<string> { "sfw", "nsfw" };
+            Console.WriteLine(WriteList(types));
             string type = Console.ReadLine();
 
             List<string> catSFW = new List<string> { "waifu", "neko","shinobu", "megumin", "bully", "cuddle", "cry",
@@ -26,23 +23,12 @@ namespace Waifu_API
                                                      "glomp", "slap", "kill", "happy", "wink", "poke", "dance", "cringe"};
             List<string> catNSFW = new List<string> { "waifu", "neko", "trap", "blowjob"  };
 
-            if (type == "sfw")
-            {
-                foreach (var c in catSFW)
-                    Console.Write(c + ", ");
-            }
-
-            else
-            {
-                foreach (var c in catNSFW)
-                    Console.Write(c + ", ");
-            }
-
+            List<string> categ = type == "sfw" ? catSFW : catNSFW;
+            Console.WriteLine(WriteList(categ)); 
             string cat = Console.ReadLine();
 
+
             var request = WebRequest.Create($"{url}{type}/{cat}");
-
-
             var response = request.GetResponse();
             var httpStatusCode = (response as HttpWebResponse).StatusCode;
 
@@ -55,9 +41,20 @@ namespace Waifu_API
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 string result = streamReader.ReadToEnd();
-                var weatherForecast = JsonConvert.DeserializeObject<Root>(result);
-                Console.WriteLine(weatherForecast.url);
+                var picURL = JsonConvert.DeserializeObject<Root>(result);
+                System.Diagnostics.Process.Start(picURL.url);
             }
+        }
+
+        static string WriteList(List<string> list)
+        {
+            string resultString = null;
+            foreach(var el in list)
+            {
+                resultString += $"{el} ";
+            }
+
+            return resultString;
         }
     }
 }
